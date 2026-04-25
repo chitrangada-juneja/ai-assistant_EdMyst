@@ -21,6 +21,32 @@ In the `backend` :
 In the `frontend` :
 * You need to have Create React App installed for the frontend to configure properly; refer to the `package.json` file.
 * run `npm start`, and click on the link that appears for your local run of the AI Assistant.
+
+__Workflow Summary:__
+_Data Processing Pipeline:_
+* PDF Upload & Chunking → PDFs are split into ~50-character chunks
+* Embeddings → Chunks converted to vectors using Sentence Transformer
+* FAISS Indexing → IndexFlatL2 stores embeddings for semantic search
+
+_Query Processing Flow:_
+* User Input → Query + Optional PDF via React frontend
+* Backend Receives → /upload (with file) or /query (text only)
+* FAISS Search → Retrieves top 10 most similar chunks to the query
+* Relevance Check → GPT-4o-mini classifier determines if escalation needed
+
+_Two Outcomes:_
+* Escalate: Create JIRA ticket for human review
+* Answer: Use chunks as context for GPT-4 to generate response
+* Response → Answer (max 30 words) sent back to frontend with Markdown links
+
+__Key Technologies:__
+Backend: FastAPI (Python) - 43.7%
+Frontend: React (JavaScript) - 28.7%
+Styling: CSS - 21.1% | HTML - 6.5%
+AI: OpenAI GPT-4, Sentence Transformers
+Vector DB: FAISS (IndexFlatL2)
+Ticketing: JIRA integration
+
 ```mermaid
 flowchart TD
     A["🌐 Frontend React App<br/>localhost:3000"] -->|User Input| B["Chat Interface<br/>App.js"]
