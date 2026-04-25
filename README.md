@@ -21,7 +21,7 @@ In the `backend` :
 In the `frontend` :
 * You need to have Create React App installed for the frontend to configure properly; refer to the `package.json` file.
 * run `npm start`, and click on the link that appears for your local run of the AI Assistant.
-
+```mermaid
 flowchart TD
     A["🌐 Frontend React App<br/>localhost:3000"] -->|User Input| B["Chat Interface<br/>App.js"]
     B -->|User Query + Optional PDF| C["Send Message Handler"]
@@ -70,4 +70,4 @@ flowchart TD
     style Q fill:#fce4ec
     style W fill:#f3e5f5
     style Z fill:#fff3e0
-
+```
